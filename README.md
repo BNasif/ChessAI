@@ -33,7 +33,13 @@ The neural network used in this project consists of 3 hidden layers of a Multi-L
 The evaluation data was taken from Kaggle. The data consists of 'Chess Board Positions' in FEN format and evaluations for the position done by Stockfish AI with 22 depth search. The data was transformed into a 8x8x12 2D matrix array for the board-position representations for the input of the neural network. The y values (evaluation values) were normalized to be between 0 and +1 so that the predictive model can better approximate the y (evaluation) numbers given the chess board data.
 
 ### Results
-On the first epoch, the model’s mean loss between the actual and predicted value was 0.0194 and a mean absolute error of 0.0918. After 200 epochs the loss was 0.0032 and the mean absolute error was 0.0397. This suggests that the NN model definitely learned to predict an evaluation value that was very close to the actual value.
+On the first epoch, the model’s mean loss between the actual and predicted value was 0.0194 and a mean absolute error of 0.0918. After 200 epochs the loss was 0.0032 and the mean absolute error was 0.0397. This suggests that the NN model definitely learned to predict an evaluation value that was very close to the actual value. The highest difference between the predicted values and the actual values was 0.52. But 8694 samples out of 9000 (96.6%) had a difference of less than or equal to 0.1
+![Image](images/image3.png)
+Looking closely at the 8694 samples which resulted in <= 0.1 difference values, we can see that the majority of the difference values are very low in Fig (1). The graph tells us that there are more samples with lower difference values than there are for higher difference values.
+![Image](images/image1.png)
+For further analysis the cumulative function of the histogram below was computed, and from there we can see a sharp decline (pre-flattened) around 0.05 difference values and the curve starts to flatten out at 0.1.
+![Image](images/image4.png)
+We can assume most of the samples with higher difference values are from chess positions that consist of extreme cases such as “pinning a piece”, “multiple threats on a piece” which the NN doesn’t really account for.
 
 ### Testing
 The NN model was evaluated through a test data set```markdown
